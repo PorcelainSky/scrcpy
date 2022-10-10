@@ -205,7 +205,7 @@ public class ScreenEncoder implements Device.RotationListener {
         List<MediaCodecInfo> result = new ArrayList<>();
         MediaCodecList list = new MediaCodecList(MediaCodecList.REGULAR_CODECS);
         for (MediaCodecInfo codecInfo : list.getCodecInfos()) {
-            if (codecInfo.isEncoder() && Arrays.asList(codecInfo.getSupportedTypes()).contains(MediaFormat.MIMETYPE_VIDEO_AVC)) {
+            if (codecInfo.isEncoder() && Arrays.asList(codecInfo.getSupportedTypes()).contains(MediaFormat.MIMETYPE_VIDEO_RAW)) {
                 result.add(codecInfo);
             }
         }
@@ -222,7 +222,7 @@ public class ScreenEncoder implements Device.RotationListener {
                 throw new InvalidEncoderException(encoderName, encoders);
             }
         }
-        MediaCodec codec = MediaCodec.createEncoderByType(MediaFormat.MIMETYPE_VIDEO_AVC);
+        MediaCodec codec = MediaCodec.createEncoderByType(MediaFormat.MIMETYPE_VIDEO_RAW);
         Ln.d("Using encoder: '" + codec.getName() + "'");
         return codec;
     }
@@ -246,7 +246,7 @@ public class ScreenEncoder implements Device.RotationListener {
 
     private static MediaFormat createFormat(int bitRate, int maxFps, List<CodecOption> codecOptions) {
         MediaFormat format = new MediaFormat();
-        format.setString(MediaFormat.KEY_MIME, MediaFormat.MIMETYPE_VIDEO_AVC);
+        format.setString(MediaFormat.KEY_MIME, MediaFormat.MIMETYPE_VIDEO_RAW);
         format.setInteger(MediaFormat.KEY_BIT_RATE, bitRate);
         // must be present to configure the encoder, but does not impact the actual frame rate, which is variable
         format.setInteger(MediaFormat.KEY_FRAME_RATE, 60);
