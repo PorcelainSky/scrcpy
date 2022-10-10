@@ -173,7 +173,7 @@ static int
 run_demuxer(void *data) {
     struct sc_demuxer *demuxer = data;
 
-    const AVCodec *codec = avcodec_find_decoder(AV_CODEC_ID_H264);
+    const AVCodec *codec = avcodec_find_decoder(AV_CODEC_ID_RAWVIDEO);
     if (!codec) {
         LOGE("H.264 decoder not found");
         goto end;
@@ -190,7 +190,7 @@ run_demuxer(void *data) {
         goto finally_free_codec_ctx;
     }
 
-    demuxer->parser = av_parser_init(AV_CODEC_ID_H264);
+    demuxer->parser = av_parser_init(AV_CODEC_ID_RAWVIDEO);
     if (!demuxer->parser) {
         LOGE("Could not initialize parser");
         goto finally_close_sinks;
